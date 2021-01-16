@@ -71,7 +71,10 @@ if( opendir SD, "$Bin/../staging_dir" )
 		print $fh "set history save on\n";
 
 		my $file = -f "$sysroot/$ARGV[1]" ? "$sysroot/$ARGV[1]" : $ARGV[1];
-		system($gdb, '-x', $fp, $file);
+		system('gdb', '-x', $fp, $file);
+		#$ENV{"LD_LIBRARY_PATH"} = "./staging_dir/hostpkg/lib";
+		#system("ldd", $gdb);
+		#system($gdb, '-x', $fp, $file);
 
 		close($fh);
 		unlink($fp);
