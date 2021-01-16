@@ -5,12 +5,11 @@ STOP=90
 
 USE_PROCD=1
 
-init_switch() {
-	setup_switch() { return 0; }
-
-	include /lib/network
-	setup_switch
-}
+init_switch() { :; }
+switch_service_triggers() { :; }
+if [ -f /lib/functions/switch.sh ]; then
+	source /lib/functions/switch.sh
+fi
 
 start_service() {
 	init_switch
@@ -104,25 +103,6 @@ validate_rule6_section()
 		'action:or("prohibit", "unreachable", "blackhole", "throw")'
 }
 
-validate_switch_section()
-{
-	uci_validate_section network switch "${1}" \
-		'name:string' \
-		'enable:bool' \
-		'enable_vlan:bool' \
-		'reset:bool' \
-		'ar8xxx_mib_poll_interval:uinteger' \
-		'ar8xxx_mib_type:range(0,1)'
-}
-
-validate_switch_vlan()
-{
-	uci_validate_section network switch_vlan "${1}" \
-		'device:string' \
-		'vlan:uinteger' \
-		'ports:list(ports)'
-}
-
 service_triggers()
 {
 	procd_add_reload_trigger network wireless
@@ -133,8 +113,7 @@ service_triggers()
 	[ -e /proc/sys/net/ipv6 ] && validate_route6_section
 	validate_rule_section
 	[ -e /proc/sys/net/ipv6 ] && validate_rule6_section
-	validate_switch_section
-	validate_switch_vlan
+	switch_service_triggers
 	procd_close_validate
 }
 
