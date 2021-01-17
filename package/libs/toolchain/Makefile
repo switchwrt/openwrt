@@ -602,7 +602,7 @@ else
   define Package/libgcc/install
 	for file in $(call qstrip,$(CONFIG_LIBGCC_FILE_SPEC)); do \
 		$(INSTALL_DIR) $(1)/lib ; \
-		$(CP) $(call qstrip,$(CONFIG_LIBGCC_ROOT_DIR))/$$$$file $(1)/lib/ ; \
+		$(CP) $(call qstrip,$(call fixpath,$(CONFIG_LIBGCC_ROOT_DIR)))/$$$$file $(1)/lib/ ; \
 	done ; \
 	exit 0
   endef
@@ -610,14 +610,14 @@ else
   define Package/libgfortran/install
 	for file in $(call qstrip,$(CONFIG_LIBGFORTRAN_FILE_SPEC)); do \
 		$(INSTALL_DIR) $(1)/lib ; \
-		$(CP) $(call qstrip,$(CONFIG_LIBGFORTRAN_ROOT_DIR))/$$$$file $(1)/lib/ ; \
+		$(CP) $(call qstrip,$(call fixpath,$(CONFIG_LIBGFORTRAN_ROOT_DIR)))/$$$$file $(1)/lib/ ; \
 	done
   endef
 
   define Package/libstdcpp/install
 	for file in $(call qstrip,$(CONFIG_LIBSTDCPP_FILE_SPEC)); do \
 		$(INSTALL_DIR) $(1)/lib ; \
-		$(CP) $(call qstrip,$(CONFIG_LIBSTDCPP_ROOT_DIR))/$$$$file $(1)/lib/ ; \
+		$(CP) $(call qstrip,$(call fixpath,$(CONFIG_LIBSTDCPP_ROOT_DIR)))/$$$$file $(1)/lib/ ; \
 	done ; \
 	exit 0
   endef
@@ -625,7 +625,7 @@ else
   define Package/libasan/install
 	for file in $(call qstrip,$(CONFIG_LIBASAN_FILE_SPEC)); do \
 		$(INSTALL_DIR) $(1)/lib ; \
-		$(CP) $(call qstrip,$(CONFIG_LIBASAN_ROOT_DIR))/$$$$file $(1)/lib/ ; \
+		$(CP) $(call qstrip,$(call fixpath,$(CONFIG_LIBASAN_ROOT_DIR)))/$$$$file $(1)/lib/ ; \
 	done ; \
 	exit 0
   endef
@@ -633,7 +633,7 @@ else
   define Package/libtsan/install
 	for file in $(call qstrip,$(CONFIG_LIBTSAN_FILE_SPEC)); do \
 		$(INSTALL_DIR) $(1)/lib ; \
-		$(CP) $(call qstrip,$(CONFIG_LIBTSAN_ROOT_DIR))/$$$$file $(1)/lib/ ; \
+		$(CP) $(call qstrip,$(call fixpath,$(CONFIG_LIBTSAN_ROOT_DIR)))/$$$$file $(1)/lib/ ; \
 	done ; \
 	exit 0
   endef
@@ -641,7 +641,7 @@ else
   define Package/liblsan/install
 	for file in $(call qstrip,$(CONFIG_LIBLSAN_FILE_SPEC)); do \
 		$(INSTALL_DIR) $(1)/lib ; \
-		$(CP) $(call qstrip,$(CONFIG_LIBLSAN_ROOT_DIR))/$$$$file $(1)/lib/ ; \
+		$(CP) $(call qstrip,$(call fixpath,$(CONFIG_LIBLSAN_ROOT_DIR)))/$$$$file $(1)/lib/ ; \
 	done ; \
 	exit 0
   endef
@@ -649,7 +649,7 @@ else
   define Package/libubsan/install
 	for file in $(call qstrip,$(CONFIG_LIBUBSAN_FILE_SPEC)); do \
 		$(INSTALL_DIR) $(1)/lib ; \
-		$(CP) $(call qstrip,$(CONFIG_LIBUBSAN_ROOT_DIR))/$$$$file $(1)/lib/ ; \
+		$(CP) $(call qstrip,$(call fixpath,$(CONFIG_LIBUBSAN_ROOT_DIR)))/$$$$file $(1)/lib/ ; \
 	done ; \
 	exit 0
   endef
@@ -657,7 +657,7 @@ else
   define Package/libc/install
 	for file in $(call qstrip,$(CONFIG_LIBC_FILE_SPEC)); do \
 		$(INSTALL_DIR) $(1)/lib ; \
-		$(CP) $(call qstrip,$(CONFIG_LIBC_ROOT_DIR))/$$$$file $(1)/lib/ ; \
+		$(CP) $(call qstrip,$(call fixpath,$(CONFIG_LIBC_ROOT_DIR)))/$$$$file $(1)/lib/ ; \
 	done ; \
 	exit 0
   endef
@@ -665,7 +665,7 @@ else
   define Package/libpthread/install
 	for file in $(call qstrip,$(CONFIG_LIBPTHREAD_FILE_SPEC)); do \
 		$(INSTALL_DIR) $(1)/lib ; \
-		$(CP) $(call qstrip,$(CONFIG_LIBPTHREAD_ROOT_DIR))/$$$$file $(1)/lib/ ; \
+		$(CP) $(call qstrip,$(call fixpath,$(CONFIG_LIBPTHREAD_ROOT_DIR)))/$$$$file $(1)/lib/ ; \
 	done ; \
 	exit 0
   endef
@@ -673,7 +673,7 @@ else
   define Package/libthread-db/install
 	for file in $(call qstrip,$(CONFIG_LIBTHREAD_DB_FILE_SPEC)); do \
 		$(INSTALL_DIR) $(1)/lib ; \
-		$(CP) $(call qstrip,$(CONFIG_LIBTHREAD_DB_ROOT_DIR))/$$$$file $(1)/lib/ ; \
+		$(CP) $(call qstrip,$(call fixpath,$(CONFIG_LIBTHREAD_DB_ROOT_DIR)))/$$$$file $(1)/lib/ ; \
 	done ; \
 	exit 0
   endef
@@ -681,7 +681,7 @@ else
   define Package/librt/install
 	for file in $(call qstrip,$(CONFIG_LIBRT_FILE_SPEC)); do \
 		$(INSTALL_DIR) $(1)/lib ; \
-		$(CP) $(call qstrip,$(CONFIG_LIBRT_ROOT_DIR))/$$$$file $(1)/lib/ ; \
+		$(CP) $(call qstrip,$(call fixpath,$(CONFIG_LIBRT_ROOT_DIR)))/$$$$file $(1)/lib/ ; \
 	done ; \
 	exit 0
   endef
@@ -689,7 +689,7 @@ else
   define Package/libatomic/install
 	for file in $(call qstrip,$(CONFIG_LIBATOMIC_FILE_SPEC)); do \
 		$(INSTALL_DIR) $(1)/lib ; \
-		$(CP) $(call qstrip,$(CONFIG_LIBATOMIC_ROOT_DIR))/$$$$file $(1)/lib/ ; \
+		$(CP) $(call qstrip,$(call fixpath,$(CONFIG_LIBATOMIC_ROOT_DIR)))/$$$$file $(1)/lib/ ; \
 	done ; \
 	exit 0
   endef
@@ -697,7 +697,7 @@ else
   define Package/libgomp/install
 	for file in $(call qstrip,$(CONFIG_LIBGOMP_FILE_SPEC)); do \
 		$(INSTALL_DIR) $(1)/lib ; \
-		$(CP) $(call qstrip,$(CONFIG_LIBGOMP_ROOT_DIR))/$$$$file $(1)/lib/ ; \
+		$(CP) $(call qstrip,$(call fixpath,$(CONFIG_LIBGOMP_ROOT_DIR)))/$$$$file $(1)/lib/ ; \
 	done ; \
 	exit 0
   endef
@@ -706,7 +706,7 @@ else
 	for file in $(call qstrip,$(CONFIG_LDD_FILE_SPEC)); do \
 		dir=`dirname $$$$file` ; \
 		$(INSTALL_DIR) $(1)/$$$$dir ; \
-		$(CP) $(call qstrip,$(CONFIG_LDD_ROOT_DIR))/$$$$file $(1)/$$$$dir/ ; \
+		$(CP) $(call qstrip,$(call fixpath,$(CONFIG_LDD_ROOT_DIR)))/$$$$file $(1)/$$$$dir/ ; \
 	done ; \
 	exit 0
   endef
@@ -715,7 +715,7 @@ else
 	for file in $(call qstrip,$(CONFIG_LDCONFIG_FILE_SPEC)); do \
 		dir=`dirname $$$$file` ; \
 		$(INSTALL_DIR) $(1)/$$$$dir ; \
-		$(CP) $(call qstrip,$(CONFIG_LDCONFIG_ROOT_DIR))/$$$$file $(1)/$$$$dir/ ; \
+		$(CP) $(call qstrip,$(call fixpath,$(CONFIG_LDCONFIG_ROOT_DIR)))/$$$$file $(1)/$$$$dir/ ; \
 	done ; \
 	exit 0
   endef

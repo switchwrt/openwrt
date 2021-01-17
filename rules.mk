@@ -26,6 +26,9 @@ export TMPDIR:=$(TMP_DIR)
 qstrip=$(strip $(subst ",,$(1)))
 #"))
 
+# Keep absolute path intact, turn relative path into absolute
+fixpath=$(patsubst $(TOPDIR)//%,%,$(TOPDIR)/$(1))
+
 empty:=
 space:= $(empty) $(empty)
 comma:=,
@@ -203,7 +206,7 @@ ifndef DUMP
   else
     ifeq ($(CONFIG_NATIVE_TOOLCHAIN),)
       TARGET_CROSS:=$(call qstrip,$(CONFIG_TOOLCHAIN_PREFIX))
-      TOOLCHAIN_ROOT_DIR:=$(call qstrip,$(CONFIG_TOOLCHAIN_ROOT))
+      TOOLCHAIN_ROOT_DIR:=$(call qstrip,$(call fixpath,$(CONFIG_TOOLCHAIN_ROOT)))
       TOOLCHAIN_BIN_DIRS:=$(patsubst ./%,$(TOOLCHAIN_ROOT_DIR)/%,$(call qstrip,$(CONFIG_TOOLCHAIN_BIN_PATH)))
       TOOLCHAIN_INC_DIRS:=$(patsubst ./%,$(TOOLCHAIN_ROOT_DIR)/%,$(call qstrip,$(CONFIG_TOOLCHAIN_INC_PATH)))
       TOOLCHAIN_LIB_DIRS:=$(patsubst ./%,$(TOOLCHAIN_ROOT_DIR)/%,$(call qstrip,$(CONFIG_TOOLCHAIN_LIB_PATH)))

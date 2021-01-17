@@ -15,7 +15,7 @@ include $(INCLUDE_DIR)/toolchain-build.mk
 
 # 1: args
 define toolchain_util
-$(strip $(SCRIPT_DIR)/ext-toolchain.sh --toolchain $(CONFIG_TOOLCHAIN_ROOT) \
+$(strip $(SCRIPT_DIR)/ext-toolchain.sh --toolchain $(call fixpath,$(CONFIG_TOOLCHAIN_ROOT)) \
 	--cflags $(CONFIG_TARGET_OPTIMIZATION) \
 	--cflags "$(if $(call qstrip,$(CONFIG_TOOLCHAIN_LIBC)),-m$(call qstrip,$(CONFIG_TOOLCHAIN_LIBC))) $(if $(CONFIG_SOFT_FLOAT),-msoft-float)" \
 	--cflags "$(patsubst ./%,-I$(TOOLCHAIN_ROOT_DIR)/%,$(call qstrip,$(CONFIG_TOOLCHAIN_INC_PATH)))" \
