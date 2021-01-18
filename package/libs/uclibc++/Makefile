@@ -45,7 +45,7 @@ UCLIBC_TARGET_ARCH:=$(shell echo $(ARCH) | sed -e s'/-.*//' \
 )
 
 TARGET_CFLAGS += $(FPIC) -nostdinc++ -std=c++11
-TARGET_LDFLAGS += -Wl,--gc-sections
+TARGET_LDFLAGS += -Wl,--gc-sections -lgcc_s
 
 ifneq ($(CONFIG_CCACHE),)
 TARGET_CXX=$(TARGET_CXX_NOCACHE)

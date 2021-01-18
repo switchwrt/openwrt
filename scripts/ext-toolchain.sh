@@ -245,7 +245,7 @@ wrap_bins() {
 		mkdir -p "$1" || return 1
 
 		local cmd
-		for cmd in "${CC%-*}-"*; do
+		for cmd in "${CC%-gcc*}-"*; do
 			if [ -x "$cmd" ]; then
 				local out="$1/${cmd##*/}"
 				local bin="$cmd"
@@ -256,6 +256,9 @@ wrap_bins() {
 				fi
 
 				case "${cmd##*/}" in
+					*-ar|*-ranlib|*-nm)
+						wrap_bin_other "$out" "$bin"
+					;;
 					*-*cc|*-*cc-*|*-*++|*-*++-*|*-cpp)
 						wrap_bin_cc "$out" "$bin"
 					;;

@@ -12,11 +12,7 @@ CMAKE_SOURCE_DIR = $(PKG_BUILD_DIR)$(if $(CMAKE_SOURCE_SUBDIR),/$(CMAKE_SOURCE_S
 HOST_CMAKE_SOURCE_DIR = $(HOST_BUILD_DIR)$(if $(CMAKE_SOURCE_SUBDIR),/$(CMAKE_SOURCE_SUBDIR))
 MAKE_PATH = $(firstword $(CMAKE_BINARY_SUBDIR) .)
 
-ifeq ($(CONFIG_EXTERNAL_TOOLCHAIN),)
-  cmake_tool=$(TOOLCHAIN_DIR)/bin/$(1)
-else
-  cmake_tool=$(shell command -v $(1))
-endif
+cmake_tool=$(shell command -v $(1))
 
 ifeq ($(CONFIG_CCACHE),)
  CMAKE_C_COMPILER_LAUNCHER:=

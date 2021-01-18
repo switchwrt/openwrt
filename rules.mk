@@ -27,7 +27,7 @@ qstrip=$(strip $(subst ",,$(1)))
 #"))
 
 # Keep absolute path intact, turn relative path into absolute
-fixpath=$(patsubst $(TOPDIR)//%,%,$(TOPDIR)/$(1))
+fixpath=$(abspath $(patsubst $(TOPDIR)//%,%,$(TOPDIR)/$(1)))
 
 empty:=
 space:= $(empty) $(empty)
@@ -258,9 +258,9 @@ ifeq ($(CONFIG_EXTERNAL_TOOLCHAIN),)
   TARGET_RANLIB:=$(TARGET_CROSS)gcc-ranlib
   TARGET_NM:=$(TARGET_CROSS)gcc-nm
 else
-  TARGET_AR:=$(TARGET_CROSS)ar
-  TARGET_RANLIB:=$(TARGET_CROSS)ranlib
-  TARGET_NM:=$(TARGET_CROSS)nm
+  TARGET_AR:=$(TARGET_CROSS)gcc-ar
+  TARGET_RANLIB:=$(TARGET_CROSS)gcc-ranlib
+  TARGET_NM:=$(TARGET_CROSS)gcc-nm
 endif
 
 BUILD_KEY=$(TOPDIR)/key-build

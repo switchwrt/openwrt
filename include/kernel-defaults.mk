@@ -114,9 +114,13 @@ define Kernel/Configure/Initramfs
 	$(call Kernel/SetInitramfs)
 endef
 
+CUSTOM_TOOLCHAIN_BIN := $(call fixpath,../openwrt-toolchain)/bin
+CUSTOM_STAGING_BIN := $(call fixpath,staging_dir)/host/bin
+KERNEL_EXTRA_PATH := $(CUSTOM_TOOLCHAIN_BIN):$(CUSTOM_STAGING_BIN)
+
 define Kernel/CompileModules/Default
 	rm -f $(LINUX_DIR)/vmlinux $(LINUX_DIR)/System.map
-	+$(KERNEL_MAKE) modules
+	PATH=$(KERNEL_EXTRA_PATH):/usr/bin:/bin $(KERNEL_MAKE) modules
 endef
 
 OBJCOPY_STRIP = -R .reginfo -R .notes -R .note -R .comment -R .mdebug -R .note.gnu.build-id
@@ -140,7 +144,7 @@ endef
 
 define Kernel/CompileImage/Default
 	rm -f $(TARGET_DIR)/init
-	+$(KERNEL_MAKE) $(if $(KERNELNAME),$(KERNELNAME),all) modules
+	PATH=$(KERNEL_EXTRA_PATH):/usr/bin:/bin $(KERNEL_MAKE) $(if $(KERNELNAME),$(KERNELNAME),all) modules
 	$(call Kernel/CopyImage)
 endef
 
@@ -150,7 +154,7 @@ define Kernel/CompileImage/Initramfs
 	$(CP) $(GENERIC_PLATFORM_DIR)/other-files/init $(TARGET_DIR)/init
 	$(if $(SOURCE_DATE_EPOCH),touch -hcd "@$(SOURCE_DATE_EPOCH)" $(TARGET_DIR)/init)
 	rm -rf $(KERNEL_BUILD_DIR)/linux-$(LINUX_VERSION)/usr/initramfs_data.cpio*
-	+$(KERNEL_MAKE) $(if $(KERNELNAME),$(KERNELNAME),all) modules
+	PATH=$(KERNEL_EXTRA_PATH):/usr/bin:/bin +$(KERNEL_MAKE) $(if $(KERNELNAME),$(KERNELNAME),all) modules
 	$(call Kernel/CopyImage,-initramfs)
 endef
 else
